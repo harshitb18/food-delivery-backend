@@ -33,6 +33,11 @@ public class UserController {
         return userService.getUserById(id);
     }
 
+    @GetMapping("/phone/{phoneNo}")
+    public User getUserByPhoneNo(@PathVariable Long phoneNo) {
+        return userService.findByPhoneNo(phoneNo);
+    }
+
     @PutMapping("/{id}")
     public User updateByUserId(@PathVariable int id, @RequestBody User user) {
         return userService.updateByUserId(id, user);

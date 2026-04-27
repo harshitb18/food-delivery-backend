@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -18,6 +19,11 @@ public class UserService {
     }
 
     public User saveUser(User user) {
+        // Check if phone number is already registered before saving
+        Optional<User> existingUser = userRepository.findByPhoneNo(user.getPhoneNo());
+        if (existingUser.isPresent()) {
+            throw new IllegalArgumentException("Phone number already registered.");
+        }
         return userRepository.save(user);
     }
 
@@ -29,9 +35,21 @@ public class UserService {
         return userRepository.findById(id).orElse(null);
     }
 
+    public User findByPhoneNo(Long phoneNo) {
+        return userRepository.findByPhoneNo(phoneNo).orElse(null);
+    }
+
     public User updateByUserId(int id, User userDetails) {
         User existingUser = userRepository.findById(id).orElse(null);
         if (existingUser != null) {
+            // If the phone number is being changed, check if it's already in use
+            if (!existingUser.getPhoneNo().equals(userDetails.getPhoneNo())) {
+                Optional<User> userWithPhone = userRepository.findByPhoneNo(userDetails.getPhoneNo());
+                if (userWithPhone.isPresent()) {
+                    throw new IllegalArgumentException("Phone number already registered to another user.");
+                }
+            }
+
             existingUser.setUsername(userDetails.getUsername());
             existingUser.setEmailId(userDetails.getEmailId());
             existingUser.setPhoneNo(userDetails.getPhoneNo());
