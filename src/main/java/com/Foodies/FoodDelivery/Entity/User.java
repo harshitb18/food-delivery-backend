@@ -1,9 +1,11 @@
 package com.Foodies.FoodDelivery.Entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Email;
 
 @Entity
 public class User {
@@ -14,8 +16,10 @@ public class User {
 
     private String username;
 
+    @Email(message = "Please provide a valid email address")
     private String emailId;
 
+    @Column(unique = true)
     private Long phoneNo;
 
     // Default constructor is required by JPA

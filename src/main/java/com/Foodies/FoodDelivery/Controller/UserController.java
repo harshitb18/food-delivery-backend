@@ -33,6 +33,11 @@ public class UserController {
         return userService.getUserById(id);
     }
 
+    @PutMapping("/{id}")
+    public User updateByUserId(@PathVariable int id, @RequestBody User user) {
+        return userService.updateByUserId(id, user);
+    }
+
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable int id) {
         userService.deleteUser(id);
