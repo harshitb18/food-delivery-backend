@@ -37,4 +37,9 @@ public class RestaurantController {
     public void deleteRestaurant(@PathVariable int id) {
         restaurantService.deleteRestaurant(id);
     }
+    
+    @DeleteMapping
+    public void deleteAllRestaurants() {
+        restaurantService.deleteAllRestaurants();
+    }
 }

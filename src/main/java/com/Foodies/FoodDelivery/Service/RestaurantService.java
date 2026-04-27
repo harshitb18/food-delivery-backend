@@ -32,4 +32,8 @@ public class RestaurantService {
     public void deleteRestaurant(int id) {
         restaurantRepository.deleteById(id);
     }
+    
+    public void deleteAllRestaurants() {
+        restaurantRepository.deleteAll();
+    }
 }
