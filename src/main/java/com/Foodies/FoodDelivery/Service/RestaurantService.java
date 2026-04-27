@@ -28,6 +28,15 @@ public class RestaurantService {
     public Restaurant getRestaurantById(int id) {
         return restaurantRepository.findById(id).orElse(null);
     }
+    
+    public Restaurant updateRestaurantById(int id, Restaurant restaurantDetails) {
+        Restaurant existingRestaurant = restaurantRepository.findById(id).orElse(null);
+        if (existingRestaurant != null) {
+            existingRestaurant.setName(restaurantDetails.getName());
+            return restaurantRepository.save(existingRestaurant);
+        }
+        return null;
+    }
 
     public void deleteRestaurant(int id) {
         restaurantRepository.deleteById(id);
