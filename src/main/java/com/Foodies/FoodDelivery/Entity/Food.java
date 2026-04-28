@@ -1,5 +1,6 @@
 package com.Foodies.FoodDelivery.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,6 +24,7 @@ public class Food {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "restaurant_id", nullable = false)
+    @JsonIgnoreProperties("foods")
     private Restaurant restaurant;
 
     public Food() {
