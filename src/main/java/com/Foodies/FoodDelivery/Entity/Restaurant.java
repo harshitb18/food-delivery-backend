@@ -1,9 +1,13 @@
 package com.Foodies.FoodDelivery.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import java.util.List;
 
 @Entity
 public class Restaurant {
@@ -13,6 +17,10 @@ public class Restaurant {
     private int restaurantId;
 
     private String name;
+
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("restaurant")
+    private List<Food> foods;
 
     public Restaurant() {
     }
@@ -40,6 +48,14 @@ public class Restaurant {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Food> getFoods() {
+        return foods;
+    }
+
+    public void setFoods(List<Food> foods) {
+        this.foods = foods;
     }
 
     @Override
